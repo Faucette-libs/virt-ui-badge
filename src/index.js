@@ -33,6 +33,7 @@ Badge.contextTypes = {
 Badge.propTypes = {
     badgeContent: propTypes.any.isRequired,
     badgeStyle: propTypes.object,
+    radius: propTypes.number,
     className: propTypes.string,
     primary: propTypes.bool,
     secondary: propTypes.bool,
@@ -40,6 +41,8 @@ Badge.propTypes = {
 };
 
 Badge.defaultProps = {
+    radius: 12,
+    paddingRadius: 12,
     primary: false,
     secondary: false
 };
@@ -48,18 +51,19 @@ BadgePrototype = Badge.prototype;
 
 BadgePrototype.getStyles = function() {
     var props = this.props,
-        primary = props.primary,
-        secondary = props.secondary,
         palette = this.context.muiTheme.palette,
 
-        radius = 12,
+        radius = props.radius,
         radius2x = radius * 2,
+
+        paddingRadius = props.paddingRadius,
+        paddingRadius2x = paddingRadius * 2,
 
         styles = {
             root: {
                 position: "relative",
                 display: "inline-block",
-                padding: radius2x + "px " + radius2x + "px " + radius + "px " + radius + "px"
+                padding: paddingRadius2x + "px " + paddingRadius2x + "px " + paddingRadius + "px " + paddingRadius + "px"
             },
             badge: {
                 display: "flex",
@@ -75,19 +79,19 @@ BadgePrototype.getStyles = function() {
                 fontSize: radius + "px",
                 width: radius2x + "px",
                 height: radius2x + "px",
-                backgroundColor: palette.disabledTextColor,
+                backgroundColor: palette.primaryTextColor,
                 color: palette.lightText
             }
         };
 
     css.borderRadius(styles.badge, "50%");
 
-    if (primary) {
-        styles.badge.badgeBackgroundColor = palette.primaryColor;
-        styles.badge.badgeTextColor = palette.primaryTextColor;
-    } else if (secondary) {
-        styles.badge.badgeBackgroundColor = palette.secondaryColor;
-        styles.badge.badgeTextColor = palette.secondaryTextColor;
+    if (props.primary) {
+        styles.badge.backgroundColor = palette.primaryColor;
+        styles.badge.color = palette.primaryTextColor;
+    } else if (props.secondary) {
+        styles.badge.backgroundColor = palette.accentColor;
+        styles.badge.color = palette.secondaryTextColor;
     }
 
     return styles;
