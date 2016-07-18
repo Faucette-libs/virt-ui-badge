@@ -85,7 +85,7 @@ AppPrototype.render = function() {
                 style: {
                     margin: "0px"
                 }
-            }, "Hello, World!"))
+            }, "Add"))
         )
     );
 };
