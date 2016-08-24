@@ -16,7 +16,7 @@ function Badge(props, children, context) {
 virt.Component.extend(Badge, "virt-ui-Badge");
 
 Badge.contextTypes = {
-    muiTheme: propTypes.implement({
+    theme: propTypes.implement({
         palette: propTypes.implement({
             primaryColor: propTypes.string,
             secondaryColor: propTypes.string,
@@ -51,7 +51,7 @@ BadgePrototype = Badge.prototype;
 
 BadgePrototype.getStyles = function() {
     var props = this.props,
-        palette = this.context.muiTheme.palette,
+        palette = this.context.theme.palette,
 
         radius = props.radius,
         radius2x = radius * 2,
